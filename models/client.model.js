@@ -2,21 +2,19 @@ const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
 const bcrypt = require('bcrypt')
 
-const restaurantSchema = new mongoose.Schema({
-    name: { type: String, default: '', unique: true },
+const clientSchema = new mongoose.Schema({
+    first_name: { type: String, default: '' },
+    last_name: { type: String, default: '' },
     email: { type: String, unique: true, trim: true, lowercase: true, required: true},
     password: { type: String, required: true, minlength: 8, maxlength: 128},
     phone_no: { type: String, required: true, minlength: 10, maxlength: 12},
-    address: {type: String, default: ''},
-    is_approved: {type: Boolean, default: false},
-    status: {type: Boolean, default: false},
-    business_license: {type: Array, default: [] },
-    rating: { type: Number, default: 0 }
+    address: { type: String, default: ''},
+    no_of_orders: { type: Number, default: 0 }
   },
   {timestamps: {createdAt: 'created_at', modifiedAt: 'modified_at'}
 })
 
-restaurantSchema.pre('save', function preSave(next) {
+clientSchema.pre('save', function preSave(next) {
     let model = this
 
     model.hashPasswd(model.password, (err, hash) => {
@@ -25,13 +23,14 @@ restaurantSchema.pre('save', function preSave(next) {
     })
 })
 
-restaurantSchema.method({
+clientSchema.method({
     verifyPassword(passwd) {
         return new Promise((resolve, reject) => {
           bcrypt.compare(passwd, this.password, (err, isMatch) => {
             if (err) {
               return reject(err)
-            }  
+            }
+      
             resolve(isMatch)
           })
         })
@@ -60,6 +59,6 @@ restaurantSchema.method({
 })
  
 
-restaurantSchema.plugin(mongoosePaginate);
+clientSchema.plugin(mongoosePaginate);
 
-module.exports = mongoose.model('restaurant', restaurantSchema);
+module.exports = mongoose.model('client', clientSchema);

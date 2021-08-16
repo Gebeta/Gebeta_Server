@@ -16,7 +16,6 @@ if (env === 'development') {
     mongoose.set('debug', true);
   }
 
-  
 /**
  * Connect to mongo db
  *
@@ -34,7 +33,10 @@ exports.connect = () => {
       })
       .then(async () => {
         console.log('mongoDB connected...') 
-        await migration.migrateAdmin();     
+        await migration.migrateAdmin();
+        await migration.migrateClient(); 
+        await migration.migrateOrder();
+        await migration.migrateDriver();    
       });
     return mongoose.connection;
   };

@@ -22,13 +22,33 @@ exports.login = async (req, res, next) => {
             {expiresIn: '2h'},
             { algorithm: 'HS256' })
        });
-      }
-      throw new Error("Email/password not found")  
-        
+      }else{
+        res.status(400).json({
+          error: true,
+          message: "Incorrect Email/password"
+        })
+      }     
     } catch (error) {
         res.status(400).json({
             error: true,
             message: error.message
         })
     }
+}
+
+exports.logout = async (req, res) => {
+  try {
+      req.session.destroy((err)=>{
+          if(err){
+              throw new Error("Something went wrong")
+          }
+          res.send("your logged out")
+      });
+  } catch (error) {
+      
+      res.status(400).json({
+          error: true,
+          message: error.message
+      })
+  }   
 }

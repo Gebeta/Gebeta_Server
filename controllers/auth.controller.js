@@ -14,15 +14,20 @@ exports.login = async (req, res) => {
                 email: req.body.email
               }).select('-password')
               req.session.restaurant = restaurant;
-              const restaurantfortoken = _.pick(restaurant,['userName','_id','email'])
+              const restaurantfortoken = _.pick(restaurant,['name','_id','email'])
             return res.json({
                 ...restaurant._doc,
                 token: jwt.sign({data: restaurantfortoken}, jwt_key,{
                     expiresIn: '7d'
                 }, { algorithm: 'HS256' })
             });
+        }else{
+        	res.status(400).json({
+        		error: true,
+        		message: "Incorrect Email/password"
+        	})
         }
-       throw new Error("Email/password not found")
+       
     } catch (error) {     
         res.json({
             error: true,
@@ -42,7 +47,8 @@ exports.signup = async (req, res) => {
         }
         
         const newUser = await new restaurantModel({
-            userName : req.body.userName,
+            name : req.body.name,
+            phone_no : req.body.phone_no,
             email : req.body.email,
             password : req.body.password
         })

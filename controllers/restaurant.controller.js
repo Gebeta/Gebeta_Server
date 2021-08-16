@@ -14,7 +14,7 @@ exports.viewAllrestaurants = async (req, res) => {
     
 }
 
-exports.viewrestaurant = async (req, res) => {
+exports.viewRestaurant = async (req, res) => {
     try {
         const restaurant = await restaurantModel.findById(req.params.id)
         res.json(restaurant)
@@ -27,7 +27,7 @@ exports.viewrestaurant = async (req, res) => {
 
 }
 
-exports.updaterestaurant = async (req, res) => {
+exports.updateRestaurant = async (req, res) => {
 
     try {
         let restaurant =  await restaurantModel.find({_id:req.restaurant.data._id})
@@ -45,7 +45,7 @@ exports.updaterestaurant = async (req, res) => {
     }
 }
 
-exports.removerestaurant = async (req, res) => {
+exports.removeRestaurant = async (req, res) => {
     try {
         let restaurant = await restaurantModel.findById(req.params.id)
         if(restaurant) {
