@@ -4,7 +4,7 @@ const clientModel = require('../models/client.model')
 exports.viewAllorders = async (req, res) => {
 
     try {
-        const orders = await orderModel.paginate({});
+        const orders = await orderModel.find({});
         res.json(orders)
     } catch (error) {
         

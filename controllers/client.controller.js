@@ -3,7 +3,7 @@ const clientModel = require('../models/client.model')
 exports.viewAllclients = async (req, res) => {
 
     try {
-        const clients = await clientModel.paginate({});
+        const clients = await clientModel.find({});
         res.json(clients)
     } catch (error) {
         

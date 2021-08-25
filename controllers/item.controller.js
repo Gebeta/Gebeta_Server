@@ -4,7 +4,7 @@ const fs = require("fs");
 exports.viewAllitems = async (req, res) => {
 
     try {
-        const items = await itemModel.paginate({});
+        const items = await itemModel.find({});
         res.json(items)
     } catch (error) {
         

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
 const bcrypt = require('bcrypt')
 
 const driverSchema = new mongoose.Schema({
@@ -58,6 +57,5 @@ driverSchema.method({
       }
 })
  
-driverSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('driver', driverSchema);

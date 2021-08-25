@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
 const bcrypt = require('bcrypt')
 
 const restaurantSchema = new mongoose.Schema({
@@ -60,6 +59,5 @@ restaurantSchema.method({
 })
  
 
-restaurantSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('restaurant', restaurantSchema);
