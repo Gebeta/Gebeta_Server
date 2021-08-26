@@ -27,6 +27,9 @@ router.post('/login', validatRequest('loginUser'), authController.login);
  */
 router.post('/signup', validatRequest('createUser'),authController.signup);
 
+router.post('/clientsignup',authController.clientSignup);
+
+
 /**
  * Logout
  * 

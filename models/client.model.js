@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
 const bcrypt = require('bcrypt')
 
 const clientSchema = new mongoose.Schema({
@@ -7,7 +6,7 @@ const clientSchema = new mongoose.Schema({
     last_name: { type: String, default: '' },
     email: { type: String, unique: true, trim: true, lowercase: true, required: true},
     password: { type: String, required: true, minlength: 8, maxlength: 128},
-    phone_no: { type: String, required: true, minlength: 10, maxlength: 12},
+    phone_no: { type: String, required: true, minlength: 10, maxlength: 13},
     address: { type: String, default: ''},
     no_of_orders: { type: Number, default: 0 }
   },
@@ -58,7 +57,5 @@ clientSchema.method({
       }
 })
  
-
-clientSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('client', clientSchema);

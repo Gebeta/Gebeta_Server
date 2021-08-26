@@ -2,7 +2,7 @@ const driverModel = require('../models/driver.model')
 
 exports.viewAlldrivers = async (req, res) => {
     try {
-        const drivers = await driverModel.paginate({});
+        const drivers = await driverModel.find({});
         res.json(drivers)
     } catch (error) {
         res.status(400).json({

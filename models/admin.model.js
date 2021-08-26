@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
 const bcrypt = require('bcrypt')
 
 const adminSchema = new mongoose.Schema({
@@ -53,7 +52,5 @@ adminSchema.method({
       }
 })
  
-
-adminSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('admin', adminSchema);

@@ -3,6 +3,7 @@ var jwt = require('jsonwebtoken');
 
 const { jwt_key } = require('../config/vars')
 const restaurantModel = require('../models/restaurant.model')
+const clientModel = require('../models/client.model')
 
 exports.login = async (req, res) => { 
     try {     
@@ -51,6 +52,38 @@ exports.signup = async (req, res) => {
             phone_no : req.body.phone_no,
             email : req.body.email,
             password : req.body.password
+        })
+        
+        await newUser.save()
+        res.status(200).json(   
+            newUser
+        )
+    } catch (error) {
+        
+        res.status(400).json({
+            error: true,
+            message: error.message
+        })
+    }   
+}
+
+exports.clientSignup = async (req, res) => {
+
+    try {     
+        const restaurant = await clientModel.findOne({
+            phone_no: req.body.phone_no
+        })
+        if(restaurant){
+            throw new Error("Client already Exists")
+        }
+        
+        const newUser = await new clientModel({
+            first_name : req.body.first_name,
+            last_name : req.body.last_name,
+            phone_no : req.body.phone_no,
+            email : req.body.email,
+            password : req.body.password,
+            address : req.body.address
         })
         
         await newUser.save()
