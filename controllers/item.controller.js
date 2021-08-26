@@ -4,7 +4,7 @@ const fs = require("fs");
 exports.viewAllitems = async (req, res) => {
 
     try {
-        const items = await itemModel.paginate({});
+        const items = await itemModel.find({restaurandId:req.params.id});
         res.json(items)
     } catch (error) {
         
@@ -58,7 +58,8 @@ exports.additem = async (req, res) => {
             description : req.body.description,
             price: req.body.price,
             isServed : req.body.isServed,
-            imgLocation: req.body.imgLocation
+            imgLocation: req.body.imgLocation,
+            restaurandId: req.body.restaurandId
         })
         
         await newitem.save()

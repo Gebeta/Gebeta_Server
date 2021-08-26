@@ -6,7 +6,8 @@ const itemSchema = new mongoose.Schema({
     description: { type: String, default: '' },
     price: { type: Number, default: 0 },
     isServed: { type: Boolean, default: false },
-    imgLocation: { type: Array, default: [] }
+    imgLocation: { type: Array, default: [] },
+    restaurandId: {type: String}
   },
   {timestamps: {createdAt: 'created_at', modifiedAt: 'modified_at'}
 })
