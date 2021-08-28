@@ -85,11 +85,17 @@ exports.clientSignup = async (req, res) => {
             password : req.body.password,
             address : req.body.address
         })
-        
         await newUser.save()
-        res.status(200).json(   
-            newUser
-        )
+        // res.status(200).json(   
+        //     newUser
+        // )
+        const clientfortoken = _.pick(newUser,['name','_id','email'])
+            return res.status(200).json({
+                ...newUser._doc,
+                token: jwt.sign({data: clientfortoken}, jwt_key, { algorithm: 'HS256' })
+            });
+        
+        
     } catch (error) {
         
         res.status(400).json({
@@ -98,6 +104,38 @@ exports.clientSignup = async (req, res) => {
         })
     }   
 }
+
+
+exports.clientLogin = async (req, res) => { 
+    try {     
+        const client = await clientModel.findOne({
+            email: req.body.email
+        });
+        if(client && await client.verifyPassword(req.body.password)){            
+            const client = await clientModel.findOne({
+                email: req.body.email
+              }).select('-password')
+              req.session.client = client;
+              const clientfortoken = _.pick(client,['name','_id','email'])
+            return res.json({
+                ...client._doc,
+                token: jwt.sign({data: clientfortoken}, jwt_key, { algorithm: 'HS256' })
+            });
+        }else{
+        	res.status(400).json({
+        		error: true,
+        		message: "Incorrect Email/password"
+        	})
+        }
+       
+    } catch (error) {     
+        res.json({
+            error: true,
+            message: error.message
+        })
+    }    
+}
+
 
 exports.logout = async (req, res) => {
     try {
