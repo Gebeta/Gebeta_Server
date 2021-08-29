@@ -31,8 +31,8 @@ app.use(cookieParser());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(jwt({ secret: jwt_key, algorithms: ['HS256']})
-// .unless({path: routes.public}));
+app.use(jwt({ secret: jwt_key, algorithms: ['HS256']})
+.unless({path: routes.public}));
 
 app.use(session({
   secret: session_key,

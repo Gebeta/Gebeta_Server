@@ -4,11 +4,7 @@ const fs = require("fs");
 exports.viewAllitems = async (req, res) => {
 
     try {
-<<<<<<< HEAD
         const items = await itemModel.find({restaurandId:req.params.id});
-=======
-        const items = await itemModel.find({});
->>>>>>> 3c7d03caf0d48eed7a45bcac83a666137a5841a9
         res.json(items)
     } catch (error) {
         
