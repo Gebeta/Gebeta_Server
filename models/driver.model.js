@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 const driverSchema = new mongoose.Schema({
     first_name: { type: String, default: '' },
     last_name: { type: String, default: '' },
+    address: {type: String, default: ''},
     car: {type: String, default: ''},
     car_plate: {type: String, default: ''},
     email: { type: String, unique: true, trim: true, lowercase: true, required: true},

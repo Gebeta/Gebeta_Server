@@ -56,6 +56,47 @@ exports.uploadImg = async (req,res) => {
     }
 }
 
+exports.ruploadImg = async (req,res) => {
+    try {
+        var fileNames = JSON.parse(req.body.fileNames);
+        var folder = './public/images/' + req.body.restId;
+	    fs.mkdir(folder, function(err) {
+            if (err) {
+                console.log(err)
+                return res.status(400).json({error: true, message:err.message})
+            }
+	    })
+     
+
+        suspend(1000).then(() => {
+            for(var i = 0; i < 2; i++){
+                var file = req.files[i];
+                var target_path = folder + '/' + fileNames[i];                  
+                fs.rename(file.path, target_path, err => {
+                    if (err) {
+                        //if [File not found] error occur, try to rename img again after 3s
+                        suspend(3000).then(() => {
+                            fs.rename(file.path, target_path, err => {
+                                res.status(400).json({error: true, message: err.message})
+                            })
+                        })
+                        return
+                    }
+                }) 
+            } 
+
+            res.status(200).json({message: " files uploaded successfully"})       
+        });
+
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({
+            error: true,
+            message: error.message
+        })
+    }
+}
+
 
 exports.deleteImage = async (req,res) => {
     try {

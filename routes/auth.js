@@ -16,6 +16,8 @@ const { validatRequest } =require('../midddlewares/validation/auth')
  */
 router.post('/login', validatRequest('loginUser'), authController.login);
 
+router.post('/checkrest',authController.check);
+
 /**
  * Signup
  * 
@@ -25,7 +27,7 @@ router.post('/login', validatRequest('loginUser'), authController.login);
  * @returns {object} 200 - User object
  * @returns {Error}  default - Unexpected error
  */
-router.post('/signup', validatRequest('createUser'),authController.signup);
+router.post('/signup', validatRequest('createRestaurant'),authController.signup);
 
 router.post('/clientsignup',authController.clientSignup);
 

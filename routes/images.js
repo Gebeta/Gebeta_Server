@@ -21,6 +21,7 @@ router.get('/:name', imageController.getImage);
  * @returns {Error}  default - Unexpected error
  */
 router.post('/upload', upload.array('itemImg', 5), imageController.uploadImg);
+router.post('/rupload', upload.array('restImg', 2), imageController.ruploadImg);
 
  /**
  * delete Image

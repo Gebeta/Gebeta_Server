@@ -37,26 +37,55 @@ exports.login = async (req, res) => {
     }    
 }
 
+exports.check = async (req, res) => {
+    try{
+        const restaurant = await restaurantModel.findOne({
+            name: req.body.name
+        })
+
+        const phone = await restaurantModel.findOne({
+            phone_no: req.body.phone
+        })
+        
+        if(restaurant){throw new Error("Restaurant already exist")}
+        if(phone){throw new Error("Phone already listed by other restaurant")}
+
+        res.status(200).json(   
+            {message: 'data non-exist'}
+        )
+    } catch (error) {
+        
+        res.status(400).json({
+            error: true,
+            message: error.message
+        })
+    }   
+}
+
 exports.signup = async (req, res) => {
 
     try {     
         const restaurant = await restaurantModel.findOne({
             email: req.body.email
         })
+
         if(restaurant){
-            throw new Error("User already Exists")
+            throw new Error("This Restaurant email already exists")
         }
         
-        const newUser = await new restaurantModel({
+        const newRestaurant = await new restaurantModel({
             name : req.body.name,
             phone_no : req.body.phone_no,
+            address: req.body.address,
             email : req.body.email,
-            password : req.body.password
+            password : req.body.password,
+            idCard: req.body.idCard,
+            business_license: req.body.business_license    
         })
         
-        await newUser.save()
+        await newRestaurant.save()
         res.status(200).json(   
-            newUser
+            newRestaurant
         )
     } catch (error) {
         

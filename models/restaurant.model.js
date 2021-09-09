@@ -2,14 +2,15 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
 
 const restaurantSchema = new mongoose.Schema({
-    name: { type: String, default: '', unique: true },
+    name: { type: String, required: true, unique: true },
     email: { type: String, unique: true, trim: true, lowercase: true, required: true},
-    password: { type: String, required: true, minlength: 8, maxlength: 128},
-    phone_no: { type: String, required: true, minlength: 10, maxlength: 12},
+    password: { type: String, required: true, minlength: 8, maxlength: 15},
+    phone_no: { type: String, required: true, minlength: 10, maxlength: 15},
     address: {type: String, default: ''},
     is_approved: {type: Boolean, default: false},
     status: {type: Boolean, default: false},
-    business_license: {type: Array, default: [] },
+    business_license: {type: String, required: true },
+    idCard: {type: String, required: true },
     rating: { type: Number, default: 0 }
   },
   {timestamps: {createdAt: 'created_at', modifiedAt: 'modified_at'}
