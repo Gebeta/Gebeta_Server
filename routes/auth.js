@@ -31,6 +31,8 @@ router.post('/signup', validatRequest('createRestaurant'),authController.signup)
 
 router.post('/clientsignup',authController.clientSignup);
 
+router.post('/clientlogin',authController.clientLogin);
+
 
 /**
  * Logout
