@@ -4,6 +4,8 @@ exports.routes = {
         '/auth/signup',
         '/auth/checkrest',
         '/images/rupload',
-        '/admin/login'
+        '/admin/login',
+        '/auth/clientsignup',
+        '/auth/clientlogin',
     ]
 }

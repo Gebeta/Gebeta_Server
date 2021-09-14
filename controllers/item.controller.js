@@ -1,6 +1,22 @@
 const itemModel = require('../models/item.model')
 const fs = require("fs");
 
+exports.viewAllOfItems = async (req, res) => {
+
+    try {
+        const items = await itemModel.find({}).populate('restaurandId');
+        res.json(items)
+    } catch (error) {
+        
+        res.status(400).json({
+            error: true,
+            message: error.message
+        })
+    }
+    
+}
+
+
 exports.viewAllitems = async (req, res) => {
 
     try {

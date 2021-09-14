@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var authController = require('../controllers/auth.controller');
-const { validatRequest } =require('../midddlewares/validation/auth')
+const { validatRequest } = require('../midddlewares/validation/auth')
 
 
 /**
@@ -16,7 +16,7 @@ const { validatRequest } =require('../midddlewares/validation/auth')
  */
 router.post('/login', validatRequest('loginUser'), authController.login);
 
-router.post('/checkrest',authController.check);
+router.post('/checkrest', authController.check);
 
 /**
  * Signup
@@ -27,11 +27,15 @@ router.post('/checkrest',authController.check);
  * @returns {object} 200 - User object
  * @returns {Error}  default - Unexpected error
  */
-router.post('/signup', validatRequest('createRestaurant'),authController.signup);
+router.post('/signup', validatRequest('createRestaurant'), authController.signup);
 
-router.post('/clientsignup',authController.clientSignup);
+router.post('/clientsignup', authController.clientSignup);
 
-router.post('/clientlogin',authController.clientLogin);
+router.post('/clientlogin', authController.clientLogin);
+
+router.post('/driversignup', authController.driver_signup);
+
+router.post('/driverlogin', authController.driver_login);
 
 
 /**

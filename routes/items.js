@@ -11,6 +11,10 @@ const itemController = require('../controllers/item.controller')
  * @returns {object} 200 - List of items
  * @returns {Error}  default - Unexpected error
  */
+
+router.get('/', itemController.viewAllOfItems);
+
+
 router.get('/menu/:id', itemController.viewAllitems);
 
 

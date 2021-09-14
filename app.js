@@ -19,6 +19,7 @@ var admin = require('./routes/admin');
 var client = require('./routes/client');
 var driver = require('./routes/driver');
 var order = require('./routes/order');
+var rate = require('./routes/rate');
 
 var app = express();
 
@@ -31,8 +32,8 @@ app.use(cookieParser());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(jwt({ secret: jwt_key, algorithms: ['HS256']})
-.unless({path: routes.public}));
+// app.use(jwt({ secret: jwt_key, algorithms: ['HS256']})
+// .unless({path: routes.public}));
 
 app.use(session({
   secret: session_key,
@@ -48,6 +49,7 @@ app.use('/admin',admin);
 app.use('/client', client);
 app.use('/driver', driver);
 app.use('/order', order);
+app.use('/rate', rate);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
