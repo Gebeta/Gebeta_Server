@@ -59,6 +59,7 @@ exports.additem = async (req, res) => {
             price: req.body.price,
             isServed : req.body.isServed,
             imgLocation: req.body.imgLocation,
+            catagory: req.body.catagory,
             restaurandId: req.body.restaurandId
         })
         

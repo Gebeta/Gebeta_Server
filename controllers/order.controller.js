@@ -4,7 +4,7 @@ const clientModel = require('../models/client.model')
 exports.viewAllorders = async (req, res) => {
 
     try {
-        const orders = await orderModel.find({});
+        const orders = await orderModel.find({restaurant_id:req.params.id});
         res.json(orders)
     } catch (error) {
         

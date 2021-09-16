@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const orderController = require('../controllers/order.controller')
 
-router.get('/', orderController.viewAllorders);
+router.get('/r/:id', orderController.viewAllorders);
 
 router.get('/:id', orderController.viewOrder);
 

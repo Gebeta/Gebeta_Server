@@ -47,7 +47,7 @@ exports.check = async (req, res) => {
             phone_no: req.body.phone
         })
         
-        if(restaurant){throw new Error("Restaurant already exist")}
+        if(restaurant){throw new Error("Restaurant Name already taken")}
         if(phone){throw new Error("Phone already listed by other restaurant")}
 
         res.status(200).json(   
@@ -74,11 +74,13 @@ exports.signup = async (req, res) => {
         }
         
         const newRestaurant = await new restaurantModel({
+            tin: req.body.tin,
             name : req.body.name,
             phone_no : req.body.phone_no,
             address: req.body.address,
             email : req.body.email,
             password : req.body.password,
+            restPic : req.body.restPic,
             idCard: req.body.idCard,
             business_license: req.body.business_license    
         })
@@ -114,10 +116,9 @@ exports.clientSignup = async (req, res) => {
             password : req.body.password,
             address : req.body.address
         })
+        
         await newUser.save()
-        // res.status(200).json(   
-        //     newUser
-        // )
+
         const clientfortoken = _.pick(newUser,['name','_id','email'])
             return res.status(200).json({
                 ...newUser._doc,

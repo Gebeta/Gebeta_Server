@@ -69,7 +69,7 @@ exports.ruploadImg = async (req,res) => {
      
 
         suspend(1000).then(() => {
-            for(var i = 0; i < 2; i++){
+            for(var i = 0; i < 3; i++){
                 var file = req.files[i];
                 var target_path = folder + '/' + fileNames[i];                  
                 fs.rename(file.path, target_path, err => {
