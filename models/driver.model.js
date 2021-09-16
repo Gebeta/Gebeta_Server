@@ -9,7 +9,17 @@ const driverSchema = new mongoose.Schema({
     car_plate: {type: String, default: ''},
     email: { type: String, unique: true, trim: true, lowercase: true, required: true},
     password: { type: String, required: true, minlength: 8, maxlength: 128},
-    phone_no: { type: String, required: true, minlength: 10, maxlength: 12}
+    phone_no: { type: String, required: true, minlength: 10, maxlength: 12},
+    location: {
+      type: {
+        type: String,
+        enum: "Point", default: "Point",
+      },
+      coordinates: {
+        type: [Number],
+        required: true
+      },
+    },
   },
   {timestamps: {createdAt: 'created_at', modifiedAt: 'modified_at'}
 })

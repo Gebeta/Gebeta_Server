@@ -7,7 +7,7 @@ const itemSchema = new mongoose.Schema({
     isServed: { type: Boolean, default: false },
     imgLocation: { type: Array, default: [] },
     catagory: {type: Array, default: [] },
-    restaurandId: {type: String}
+    restaurandId: { type: mongoose.Schema.Types.ObjectId, ref: 'restaurant' }
   },
   {timestamps: {createdAt: 'created_at', modifiedAt: 'modified_at'}
 })
