@@ -9,16 +9,9 @@ const clientSchema = new mongoose.Schema({
   phone_no: { type: String, required: true, minlength: 10, maxlength: 13 },
   address: { type: String, default: '' },
   no_of_orders: { type: Number, default: 0 },
-  location: {
-    type: {
-      type: String,
-      enum: "Point", default: "Point",
-    },
-    coordinates: {
-      type: [Number],
-      required: true
-    },
-  },
+  profile_picture :{type: String},
+  category : {type: Array, default :[]},
+
 },
   {
     timestamps: { createdAt: 'created_at', modifiedAt: 'modified_at' }
