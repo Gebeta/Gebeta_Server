@@ -19,6 +19,7 @@ var admin = require('./routes/admin');
 var client = require('./routes/client');
 var driver = require('./routes/driver');
 var order = require('./routes/order');
+var rate = require('./routes/rate');
 
 var app = express();
 
@@ -48,6 +49,7 @@ app.use('/admin',admin);
 app.use('/client', client);
 app.use('/driver', driver);
 app.use('/order', order);
+app.use('/rate', rate);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

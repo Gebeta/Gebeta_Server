@@ -10,7 +10,7 @@ const restaurantSchema = new mongoose.Schema({
     is_approved: {type: Boolean, default: false},
     status: {type: Boolean, default: false},
     business_license: {type: Array, default: [] },
-    rating: { type: Number, default: 0 }
+    rating: { type: mongoose.Schema.Types.ObjectId, ref:"rate" }
   },
   {timestamps: {createdAt: 'created_at', modifiedAt: 'modified_at'}
 })

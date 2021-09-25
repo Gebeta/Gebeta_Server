@@ -4,7 +4,7 @@ const fs = require("fs");
 exports.viewAllitems = async (req, res) => {
 
     try {
-        const items = await itemModel.find({});
+        const items = await itemModel.find({}).populate('restaurant_id');
         res.json(items)
     } catch (error) {
         
@@ -19,7 +19,7 @@ exports.viewAllitems = async (req, res) => {
 exports.viewitem = async (req, res) => {
 
     try {
-        const item = await itemModel.findById(req.params.id)
+        const item = await itemModel.findById(req.params.id).populate('restaurant_id')
         res.json(item)
     } catch (error) {
         res.status(404).json({
