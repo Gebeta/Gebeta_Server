@@ -35,7 +35,7 @@ exports.connect = () => {
         console.log('mongoDB connected...') 
         await migration.migrateAdmin();
         await migration.migrateClient(); 
-        await migration.migrateOrder();
+        // await migration.migrateOrder();
         await migration.migrateDriver();    
       });
     return mongoose.connection;

@@ -37,6 +37,13 @@ router.post('/driversignup', authController.driver_signup);
 
 router.post('/driverlogin', authController.driver_login);
 
+router.post('/checkUser',authController.checkUser);
+
+router.post('/checkDriver',authController.checkDriver);
+
+router.post('/driversignup',authController.driver_signup);
+
+router.post('/driverlogin',authController.driver_login);
 
 /**
  * Logout

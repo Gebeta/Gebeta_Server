@@ -4,6 +4,7 @@ var jwt = require('jsonwebtoken');
 const { jwt_key } = require('../config/vars')
 const restaurantModel = require('../models/restaurant.model')
 const clientModel = require('../models/client.model')
+const driverModel = require('../models/driver.model')
 
 exports.login = async (req, res) => {
     try {
@@ -113,8 +114,6 @@ exports.clientSignup = async (req, res) => {
             throw new Error("User already Exists")
         }
 
-
-        const userCurrentLocation = { type: 'Point', coordinates: [req.body.position.longitude, req.body.position.latitude] }
         const newUser = await new clientModel({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
@@ -122,18 +121,16 @@ exports.clientSignup = async (req, res) => {
             email: req.body.email,
             password: req.body.password,
             address: req.body.address,
-            location: userCurrentLocation
         })
         
         await newUser.save()
+        const clientfortoken = _.pick(newUser, ['name', '_id', 'email'])
+        return res.status(200).json({
+            ...newUser._doc,
+            token: jwt.sign({ data: clientfortoken }, jwt_key, { algorithm: 'HS256' })
+        });
 
-        const clientfortoken = _.pick(newUser,['name','_id','email'])
-            return res.status(200).json({
-                ...newUser._doc,
-                token: jwt.sign({data: clientfortoken}, jwt_key, { algorithm: 'HS256' })
-            });
-        
-        
+
     } catch (error) {
 
         res.status(400).json({
@@ -142,8 +139,6 @@ exports.clientSignup = async (req, res) => {
         })
     }
 }
-
-
 
 exports.checkUser = async (req, res) => {
 
@@ -260,8 +255,7 @@ exports.driver_signup = async (req, res) => {
             phone_no: req.body.phone_no,
             address: req.body.address,
             email: req.body.email,
-            // profile_picture : req.path.imageUrl,
-            // driving_license: req.path.driving_license,
+            driving_license: req.path.driving_license,
             car_plate: req.body.car_plate,
             password: req.body.password,
             idCard: req.body.idCard,
@@ -270,6 +264,32 @@ exports.driver_signup = async (req, res) => {
         await newDriver.save()
         res.status(200).json(
             newDriver
+        )
+    } catch (error) {
+
+        res.status(400).json({
+            error: true,
+            message: error.message
+        })
+    }
+}
+
+
+exports.checkDriver = async (req, res) => {
+    try {
+        const driver = await driverModel.findOne({
+            email: req.body.email
+        })
+
+        const phone = await driverModel.findOne({
+            phone_no: req.body.phone
+        })
+
+        if (driver) { throw new Error("Driver already exist") }
+        if (phone) { throw new Error("Phone already listed by other Driver") }
+
+        res.status(200).json(
+            { message: 'data non-exist' }
         )
     } catch (error) {
 

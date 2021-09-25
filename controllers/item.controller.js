@@ -35,7 +35,7 @@ exports.viewAllitems = async (req, res) => {
 exports.viewitem = async (req, res) => {
 
     try {
-        const item = await itemModel.findById(req.params.id)
+        const item = await itemModel.findById(req.params.id).populate('restaurant_id')
         res.json(item)
     } catch (error) {
         res.status(404).json({

@@ -9,6 +9,7 @@ const clientSchema = new mongoose.Schema({
   phone_no: { type: String, required: true, minlength: 10, maxlength: 13 },
   address: { type: String, default: '' },
   no_of_orders: { type: Number, default: 0 },
+  category:{ type: Array , default: []}
 },
   {
     timestamps: { createdAt: 'created_at', modifiedAt: 'modified_at' }

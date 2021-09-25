@@ -6,13 +6,13 @@ exports.viewAllclients = async (req, res) => {
         const clients = await clientModel.find({});
         res.json(clients)
     } catch (error) {
-        
+
         res.status(400).json({
             error: true,
             message: error.message
         })
     }
-    
+
 }
 
 exports.viewClient = async (req, res) => {
@@ -32,10 +32,12 @@ exports.viewClient = async (req, res) => {
 exports.updateClient = async (req, res) => {
 
     try {
-        let client =  await clientModel.find({_id:req.client.data._id})
-        if(client) {
-            client = await clientModel.updateOne({_id: req.client.data._id}, req.body)
-            return res.json({message :"successfully updated"})
+        const client = await clientModel.findById(req.params.id)
+        if (client) {
+            client.category = req.body.catagory
+            client.price = req.body.price
+            client = await clientModel.updateOne({ _id: req.client.data._id }, req.body)
+            return res.json({ message: "successfully updated" })
         }
 
         throw new Error('Client dosen\'t exist')
@@ -93,7 +95,7 @@ exports.removeClient = async (req, res) => {
 
     try {
         let client = await clientModel.findById(req.params.id)
-        if(client) {
+        if (client) {
             await clientModel.remove({
                 _id: client._id
             })
@@ -104,10 +106,10 @@ exports.removeClient = async (req, res) => {
 
         res.status(200).json({
             message: 'client doesn\t exist',
-    
+
         })
 
-        
+
     } catch (error) {
         res.status(400).json({
             error: true,
