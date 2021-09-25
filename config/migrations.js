@@ -31,6 +31,7 @@ const drivers = [
         email: 'desta@gmail.com',
         car: 'Hundai',
         car_plate: '208596',
+        isActive: true,
         address: 'Adama',
         password: '23452228888',
         phone_no: '0911234567'
@@ -39,6 +40,7 @@ const drivers = [
         first_name: 'tesema',
         last_name: 'lemi',
         email: 'tesema@gmail.com',
+        isActive: false,
         car: 'Toyota',
         car_plate: '208596',
         address: 'Adama',

@@ -58,6 +58,10 @@ exports.uploadProfile = async (req, res) => {
                 return res.status(400).json({error: true, message:err.message})
             }
 	    })
+
+        const client = await clientModel.findById(req.params.id)
+        client.address = req.body.address
+        await clientModel.updateOne({_id: req.client.data._id}, client)
      
         // wait 1s till create folder for the image
         suspend(1000).then(() => {
