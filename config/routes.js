@@ -2,6 +2,10 @@ exports.routes = {
     public: [
         '/auth/login',
         '/auth/signup',
-        '/admin/login'
+        '/auth/checkrest',
+        '/images/rupload',
+        '/admin/login',
+        '/auth/clientsignup',
+        '/auth/clientlogin',
     ]
 }

@@ -1,4 +1,6 @@
 var express = require('express');
+var multer  = require('multer');
+var upload = multer({dest: './public/images/'});
 var router = express.Router();
 
 const clientController = require('../controllers/client.controller')
@@ -39,6 +41,7 @@ router.get('/:id', clientController.viewClient);
  * @returns {Error}  default - Unexpected error
  */
 router.put('/:id', clientController.updateClient);
+router.post('/uploadProfile', upload.array('clientImg', 1) ,clientController.uploadProfile)
 
 /**
  * Remove a client  with id

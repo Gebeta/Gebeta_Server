@@ -8,11 +8,16 @@ exports.validatRequest = schemaName => async (req,res,next) => {
                 password: Joi.string().required()
                     .pattern(new RegExp('^[a-zA-Z0-9]{5,30}$')),
             }),
-        createUser: () => 
+        createRestaurant: () => 
             Joi.object({
+                tin: Joi.string(),
                 name: Joi.string(),
                 phone_no: Joi.string(),
                 email: Joi.string().email(),
+                address: Joi.string(),
+                idCard: Joi.string(),
+                restPic: Joi.string(),
+                business_license: Joi.string(),
                 password: Joi.string().required()
                     .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))           
             })

@@ -4,22 +4,12 @@ const bcrypt = require('bcrypt')
 const driverSchema = new mongoose.Schema({
   first_name: { type: String, default: '' },
   last_name: { type: String, default: '' },
+  address: { type: String, default: '' },
   car: { type: String, default: '' },
   car_plate: { type: String, default: '' },
   email: { type: String, unique: true, trim: true, lowercase: true, required: true },
   password: { type: String, required: true, minlength: 8, maxlength: 128 },
-  phone_no: { type: String, required: true, minlength: 10, maxlength: 13 },
-  address: { type: String, default: '' },
-  location: {
-    type: {
-      type: String,
-      enum: "Point", default: "Point",
-    },
-    coordinates: {
-      type: [Number],
-      required: true
-    },
-  },
+  phone_no: { type: String, required: true, minlength: 10, maxlength: 12 },
 },
   {
     timestamps: { createdAt: 'created_at', modifiedAt: 'modified_at' }

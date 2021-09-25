@@ -5,10 +5,10 @@ exports.viewAllrestaurants = async (req, res) => {
         const restaurants = await restaurantModel.find({});
         res.json(restaurants)
     } catch (error) {
-        // res.status(400).json({
-        //     error: true,
-        //     message: error.message
-        // })
+        res.status(400).json({
+            error: true,
+            message: error.message
+        })
         console.log(error)
     }
     

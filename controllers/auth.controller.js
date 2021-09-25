@@ -38,26 +38,24 @@ exports.login = async (req, res) => {
     }
 }
 
-exports.signup = async (req, res) => {
-
+exports.check = async (req, res) => {
     try {
         const restaurant = await restaurantModel.findOne({
-            email: req.body.email
-        })
-        if (restaurant) {
-            throw new Error("User already Exists")
-        }
-
-        const newUser = await new restaurantModel({
-            name: req.body.name,
-            phone_no: req.body.phone_no,
-            email: req.body.email,
-            password: req.body.password
+            name: req.body.name
         })
 
-        await newUser.save()
+        const phone = await restaurantModel.findOne({
+            phone_no: req.body.phone
+        })
+        
+        if(restaurant){throw new Error("Restaurant Name already taken")}
+        if(phone){throw new Error("Phone already listed by other restaurant")}
+
+        if (restaurant) { throw new Error("Restaurant already exist") }
+        if (phone) { throw new Error("Phone already listed by other restaurant") }
+
         res.status(200).json(
-            newUser
+            { message: 'data non-exist' }
         )
     } catch (error) {
 
@@ -67,6 +65,44 @@ exports.signup = async (req, res) => {
         })
     }
 }
+
+exports.signup = async (req, res) => {
+
+    try {
+        const restaurant = await restaurantModel.findOne({
+            email: req.body.email
+        })
+
+        if (restaurant) {
+            throw new Error("This Restaurant email already exists")
+        }
+
+        const newRestaurant = await new restaurantModel({
+            tin: req.body.tin,
+            name : req.body.name,
+            phone_no : req.body.phone_no,
+            address: req.body.address,
+            email : req.body.email,
+            password : req.body.password,
+            restPic : req.body.restPic,
+            idCard: req.body.idCard,
+            business_license: req.body.business_license
+        })
+
+        await newRestaurant.save()
+        res.status(200).json(
+            newRestaurant
+        )
+    } catch (error) {
+
+        res.status(400).json({
+            error: true,
+            message: error.message
+        })
+    }
+}
+
+
 
 exports.clientSignup = async (req, res) => {
 
@@ -88,6 +124,7 @@ exports.clientSignup = async (req, res) => {
             address: req.body.address,
             location: userCurrentLocation
         })
+        
         await newUser.save()
         const clientfortoken = _.pick(newUser, ['name', '_id', 'email'])
         return res.status(200).json({
@@ -241,6 +278,71 @@ exports.driver_signup = async (req, res) => {
 }
 
 
+exports.checkDriver = async (req, res) => {
+    try {
+        const driver = await driverModel.findOne({
+            email: req.body.email
+        })
+
+        const phone = await driverModel.findOne({
+            phone_no: req.body.phone
+        })
+
+        if (driver) { throw new Error("Driver already exist") }
+        if (phone) { throw new Error("Phone already listed by other Driver") }
+
+        res.status(200).json(
+            { message: 'data non-exist' }
+        )
+    } catch (error) {
+
+        res.status(400).json({
+            error: true,
+            message: error.message
+        })
+    }
+}
+
+
+
+exports.driver_signup = async (req, res) => {
+
+    try {
+        const driver = await driverModel.findOne({
+            email: req.body.email
+        })
+
+        if (driver) {
+            throw new Error("This Driver email already exists")
+        }
+
+        const newDriver = await new driverModel({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            phone_no: req.body.phone_no,
+            address: req.body.address,
+            email: req.body.email,
+            // profile_picture : req.path.imageUrl,
+            // driving_license: req.path.driving_license,
+            car_plate: req.body.car_plate,
+            password: req.body.password,
+            idCard: req.body.idCard,
+        })
+
+        await newDriver.save()
+        res.status(200).json(
+            newDriver
+        )
+    } catch (error) {
+
+        res.status(400).json({
+            error: true,
+            message: error.message
+        })
+    }
+}
+
+
 exports.driver_login = async (req, res) => {
     try {
         const driver = await driverModel.findOne({
@@ -272,3 +374,4 @@ exports.driver_login = async (req, res) => {
         })
     }
 }
+

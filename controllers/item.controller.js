@@ -1,6 +1,22 @@
 const itemModel = require('../models/item.model')
 const fs = require("fs");
 
+exports.viewAllOfItems = async (req, res) => {
+
+    try {
+        const items = await itemModel.find({}).populate('restaurandId');
+        res.json(items)
+    } catch (error) {
+        
+        res.status(400).json({
+            error: true,
+            message: error.message
+        })
+    }
+    
+}
+
+
 exports.viewAllitems = async (req, res) => {
 
     try {
@@ -58,7 +74,9 @@ exports.additem = async (req, res) => {
             description : req.body.description,
             price: req.body.price,
             isServed : req.body.isServed,
-            imgLocation: req.body.imgLocation
+            imgLocation: req.body.imgLocation,
+            catagory: req.body.catagory,
+            restaurandId: req.body.restaurandId
         })
         
         await newitem.save()
