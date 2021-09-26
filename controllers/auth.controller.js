@@ -114,6 +114,7 @@ exports.clientSignup = async (req, res) => {
             throw new Error("User already Exists")
         }
 
+        
         const newUser = await new clientModel({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
@@ -121,6 +122,7 @@ exports.clientSignup = async (req, res) => {
             email: req.body.email,
             password: req.body.password,
             address: req.body.address,
+    
         })
         
         await newUser.save()
