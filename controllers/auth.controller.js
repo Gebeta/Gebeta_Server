@@ -126,7 +126,7 @@ exports.clientSignup = async (req, res) => {
         })
         
         await newUser.save()
-        const clientfortoken = _.pick(newUser, ['name', '_id', 'email'])
+        const clientfortoken = _.pick(newUser, ['first_name', '_id', 'email'])
         return res.status(200).json({
             ...newUser._doc,
             token: jwt.sign({ data: clientfortoken }, jwt_key, { algorithm: 'HS256' })
@@ -263,10 +263,14 @@ exports.driver_signup = async (req, res) => {
             idCard: req.body.idCard,
         })
 
+
         await newDriver.save()
-        res.status(200).json(
-            newDriver
-        )
+        const driverfortoken = _.pick(newDriver, ['first_name', '_id', 'email'])
+        return res.status(200).json({
+            ...newDriver._doc,
+            token: jwt.sign({ data: driverfortoken }, jwt_key, { algorithm: 'HS256' })
+        });
+
     } catch (error) {
 
         res.status(400).json({

@@ -11,7 +11,7 @@ const clientSchema = new mongoose.Schema({
   no_of_orders: { type: Number, default: 0 },
   profile_picture :{type: String},
   category : {type: Array, default :[]},
-
+  price_range : {type: Number, default: 0}
 },
   {
     timestamps: { createdAt: 'created_at', modifiedAt: 'modified_at' }

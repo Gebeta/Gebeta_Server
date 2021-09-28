@@ -20,6 +20,7 @@ var client = require('./routes/client');
 var driver = require('./routes/driver');
 var order = require('./routes/order');
 var rate = require('./routes/rate');
+var payment = require('./routes/payment')
 
 var app = express();
 
@@ -50,7 +51,7 @@ app.use('/client', client);
 app.use('/driver', driver);
 app.use('/order', order);
 app.use('/rate', rate);
-
+app.use('/payment', payment);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

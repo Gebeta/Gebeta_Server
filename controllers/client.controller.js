@@ -33,11 +33,11 @@ exports.viewClient = async (req, res) => {
 exports.updateClient = async (req, res) => {
 
     try {
-        const client = await clientModel.findById(req.params.id)
+        console.log("ca "+ req.body.catagory)
+        console.log(req.body.price)
+        let client = await clientModel.find({_id:req.params.id})
         if (client) {
-            client.category = req.body.catagory
-            client.price = req.body.price
-            client = await clientModel.updateOne({ _id: req.client.data._id }, req.body)
+            await clientModel.updateOne({ _id: req.params.id }, {...client, category:req.body.catagory,price_range: req.body.price})
             return res.json({ message: "successfully updated" })
         }
 

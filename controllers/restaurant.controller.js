@@ -30,9 +30,9 @@ exports.viewRestaurant = async (req, res) => {
 exports.updateRestaurant = async (req, res) => {
 
     try {
-        let restaurant =  await restaurantModel.find({_id:req.restaurant.data._id})
+        let restaurant = await restaurantModel.findById(req.params.id)
         if(restaurant) {
-            restaurant = await restaurantModel.updateOne({_id: req.restaurant.data._id}, req.body)
+            restaurant = await restaurantModel.updateOne({_id: req.params.id}, req.body)
             return res.json({message :"successfully updated"})
         }
         throw new Error('restaurant dosen\'t exist')

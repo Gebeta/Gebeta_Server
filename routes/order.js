@@ -9,10 +9,13 @@ router.get('/activeorders', orderController.viewActiveOrders);
 router.get('/completedorders', orderController.viewCompletedOrders);
 
 router.post('/', orderController.createOrder);
+router.get('/', orderController.getAllOrders);
 
 router.get('/:id', orderController.viewOrder);
 
 router.put('/:id', orderController.updateOrder);
+
+router.put('/updateorder/:id', orderController.updateOrderByDriver);
 
 router.delete('/:id', orderController.removeOrder);
 
